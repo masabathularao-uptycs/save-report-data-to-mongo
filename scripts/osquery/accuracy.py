@@ -116,11 +116,11 @@ def http_query(config, query_str, url_ext):
 
 class osq_accuracy:
     def __init__(self,start_time_utc,end_time_utc,api_path,domain,endline,assets_per_cust,ext,trans,hours,input_file):
-        # self.load_start=start_time
-        # self.load_end=end_time
         format_data = "%Y-%m-%d %H:%M"
-        self.start_time = start_time_utc.strftime(format_data)
-        self.end_time = end_time_utc.strftime(format_data)
+        start_time = start_time_utc - timedelta(minutes=10)
+        self.start_time = start_time.strftime(format_data)
+        end_time = end_time_utc + timedelta(minutes=10)
+        self.end_time = end_time.strftime(format_data)
         self.api_path=api_path
         self.domain=domain
         self.endline=endline
@@ -129,13 +129,8 @@ class osq_accuracy:
         self.trans=trans
         self.hours=hours
         self.input_file=input_file
-        # self.start=datetime.strptime(self.start_time, '%Y-%m-%d %H:%M')
-        # day_name = start_time_utc.strftime("%A")
-        
-        # self.upt_day="".join(str(self.start.date()).split('-'))
         self.upt_day="".join(str(start_time_utc.strftime("%Y-%m-%d")).split('-'))
         print("Day name:", self.upt_day)
-        # self.upt_day = day_name
     def api_keys(self):
         with open(self.api_path,'r') as c:
             api_config=json.load(c)
