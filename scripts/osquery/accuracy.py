@@ -130,7 +130,6 @@ class osq_accuracy:
         self.hours=hours
         self.input_file=input_file
         self.upt_day="".join(str(start_time_utc.strftime("%Y-%m-%d")).split('-'))
-        print("Day name:", self.upt_day)
     def api_keys(self):
         with open(self.api_path,'r') as c:
             api_config=json.load(c)
