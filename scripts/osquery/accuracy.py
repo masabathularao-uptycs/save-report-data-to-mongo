@@ -283,6 +283,7 @@ class osq_accuracy:
     def table_accuracy(self,cust=0):
         api_config=self.api_keys()
         expected_tables=self.get_expected_tables(self.endline)
+        print(expected_tables)
         if cust==0:
             api=api_config[self.domain]
         else:
