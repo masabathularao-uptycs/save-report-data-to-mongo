@@ -4,6 +4,7 @@ import time
 from datetime import datetime, timedelta
 import threading
 import re
+import jwt
 from urllib3.exceptions import InsecureRequestWarning 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -114,9 +115,12 @@ def http_query(config, query_str, url_ext):
     raise Exception('Unsuccessful http query 10 time in a row: %s' % query_str)
 
 class osq_accuracy:
-    def __init__(self,start_time,end_time,api_path,domain,endline,assets_per_cust,ext,trans,hours):
-        self.load_start=start_time
-        self.load_end=end_time
+    def __init__(self,start_time_utc,end_time_utc,api_path,domain,endline,assets_per_cust,ext,trans,hours,input_file):
+        # self.load_start=start_time
+        # self.load_end=end_time
+        format_data = "%Y-%m-%d %H:%M"
+        self.start_time = start_time_utc.strftime(format_data)
+        self.end_time = end_time_utc.strftime(format_data)
         self.api_path=api_path
         self.domain=domain
         self.endline=endline
@@ -124,10 +128,14 @@ class osq_accuracy:
         self.ext=ext
         self.trans=trans
         self.hours=hours
-        self.start=datetime.strptime(self.start_time, '%Y-%m-%d %H:%M')
-        self.upt_day="".join(str(self.start.date()).split('-'))
+        self.input_file=input_file
+        # self.start=datetime.strptime(self.start_time, '%Y-%m-%d %H:%M')
+        day_name = start_time_utc.strftime("%A")
+        print("Day name:", day_name)
+        # self.upt_day="".join(str(self.start.date()).split('-'))
+        self.upt_day = day_name
     def api_keys(self):
-        with open(self.path,'r') as c:
+        with open(self.api_path,'r') as c:
             api_config=json.load(c)
             c.close()
         return api_config
@@ -251,7 +259,7 @@ class osq_accuracy:
                        dict1[events]=0        
             return dict1
     def get_expected_tables(self,endline):
-        with open("osquery/testinputfiles/rhel7-6tab_12rec.log", "r") as fin:
+        with open(self.input_file, "r") as fin:
             line_no = 1
             count=0
             output_log={}

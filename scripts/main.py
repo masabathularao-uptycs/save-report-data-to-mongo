@@ -101,9 +101,12 @@ if __name__ == "__main__":
             
         #-------------------------Osquery Table Accuracies----------------------------
         Osquery_accuracies=None
+        Osquery_event_accuracies=None
         if variables["load_type"] == "Osquery":
             print("Calculating Table accuracies for Osquery ...")
-            accuracy_obj= osq_accuracy(start_time=start_utc_time,end_time=end_utc_time,api_path="osquery/api_keys/jupiter.json",domain='jupiter',endline=18000,assets_per_cust=125,ext='.net',trans=False,hours=variables['load_duration_in_hrs'])
+            api_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),"osquery/api_keys/jupiter.json")
+            input_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),"osquery/testinputfiles/rhel7-6tab_12rec.log")
+            accuracy_obj= osq_accuracy(start_time_utc=start_utc_time,end_time_utc=end_utc_time,api_path=api_path,domain='jupiter',endline=18000,assets_per_cust=125,ext='.net',trans=False,hours=variables['load_duration_in_hrs'],input_file=input_file_path)
             Osquery_table_accuracies = accuracy_obj.table_accuracy()
             print(Osquery_table_accuracies)
             print("Calculating Events accuracies for Osquery ...")
