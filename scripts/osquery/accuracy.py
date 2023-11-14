@@ -149,7 +149,7 @@ class osq_accuracy:
         process_file_events = {'process_file_events-builder-added':0, 'process_file_events_3-builder-added':0, 'process_file_events_4-builder-added':0, 'process_file_events_5-builder-added':0, 'process_file_events_6-builder-added':0, 'process_file_events_7-builder-added':0, 'process_file_events_8-builder-added':0, 'process_file_events_9-builder-added':0, 'process_file_events_10-builder-added':0}
         req_tables = ['process_events', 'process_file_events', 'socket_events', 'dns_lookup_events']
         increment=self.assets_per_cust
-        with open("osquery/testinputfiles/rhel7-6tab_12rec.log", "r") as fin:
+        with open(self.input_file, "r") as fin:
             line_no = 1
             for line in fin:
                 if line_no % 2 == 0 and line_no <= input_lines: 
@@ -277,7 +277,6 @@ class osq_accuracy:
                 line_no=line_no+1
         return output_log
     def run_table_accuracy(self,query,table,accuracy,expected,api):
-        print("API :",api)
         actual=http_query(api, query,self.ext)
         expect=expected[table]*(self.assets_per_cust)
         accuracy[table]={"actual":actual,"expected":expect,"accuracy":round((actual/expect)*100,2)}
