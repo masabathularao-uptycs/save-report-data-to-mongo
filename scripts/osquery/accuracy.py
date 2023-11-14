@@ -130,10 +130,12 @@ class osq_accuracy:
         self.hours=hours
         self.input_file=input_file
         # self.start=datetime.strptime(self.start_time, '%Y-%m-%d %H:%M')
-        day_name = start_time_utc.strftime("%A")
-        print("Day name:", day_name)
+        # day_name = start_time_utc.strftime("%A")
+        
         # self.upt_day="".join(str(self.start.date()).split('-'))
-        self.upt_day = day_name
+        self.upt_day="".join(str(start_time_utc.strftime("%Y-%m-%d")).split('-'))
+        print("Day name:", self.upt_day)
+        # self.upt_day = day_name
     def api_keys(self):
         with open(self.api_path,'r') as c:
             api_config=json.load(c)
