@@ -277,6 +277,7 @@ class osq_accuracy:
                 line_no=line_no+1
         return output_log
     def run_table_accuracy(self,query,table,accuracy,expected,api):
+        print("API :",api)
         actual=http_query(api, query,self.ext)
         expect=sum(expected[table].values())*(self.assets_per_cust)
         accuracy[table]={"actual":actual,"expected":expect,"accuracy":round((actual/expect)*100,2)}
@@ -288,6 +289,7 @@ class osq_accuracy:
             api=api_config[self.domain]
         else:
             api=api_config[self.domain+str(cust)]
+        
         expected_tables["process_open_sockets"]={}
         expected_tables["process_open_sockets"]=expected_tables["process_open_sockets_remote"]+expected_tables["process_open_sockets_local"]
         thread_list=[]
