@@ -279,7 +279,7 @@ class osq_accuracy:
     def run_table_accuracy(self,query,table,accuracy,expected,api):
         print("API :",api)
         actual=http_query(api, query,self.ext)
-        expect=sum(expected[table].values())*(self.assets_per_cust)
+        expect=expected[table]*(self.assets_per_cust)
         accuracy[table]={"actual":actual,"expected":expect,"accuracy":round((actual/expect)*100,2)}
     def table_accuracy(self,cust=0):
         api_config=self.api_keys()
