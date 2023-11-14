@@ -289,7 +289,6 @@ class osq_accuracy:
             api=api_config[self.domain+str(cust)]
         expected_tables["process_open_sockets"]={}
         expected_tables["process_open_sockets"]=expected_tables["process_open_sockets_remote"]+expected_tables["process_open_sockets_local"]
-        expected_tables["process_open_sockets"]=expected_tables["process_open_sockets_remote"]+expected_tables["process_open_sockets_local"]
         thread_list=[]
         accuracy={}
         tables=["processes","process_open_files","load_average","interface_details","dns_lookup_events","process_open_sockets","process_file_events","process_events","socket_events"]
