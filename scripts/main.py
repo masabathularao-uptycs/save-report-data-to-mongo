@@ -88,10 +88,10 @@ if __name__ == "__main__":
             disk_space_usage_dict=calc.make_calculations()
         ##-------------------------------pg badger report link ----------------------------------
         pg_badger_report_link=None
-        if variables["load_type"]=="Osquery" or variables["load_type"]=="ControlPlane" :
+        if variables["load_type"]=="Osquery" and variables["load_name"]=="ControlPlane" :
             print("generating pg badger report ...")
-            load_name=variables['load_name']+"_"+variables['build']+"_"+str(start_time.date())
-            pg_badger_obj = pgbadger(test_env_json_details['pg_badger_url'],start_time,end_time,load_name)
+            load_name=variables['load_name']+"_"+str(variables['build'])+"_"+str(start_time.date())
+            pg_badger_obj = pgbadger(test_env_json_details['pg_badger_url'],start_time_str,end_time_str,load_name)
             pg_badger_report_link = pg_badger_obj.get_pg_badger_report()
             print(pg_badger_report_link)
         #--------------------------------- add kafka topics ---------------------------------------

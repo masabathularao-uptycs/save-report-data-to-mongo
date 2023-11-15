@@ -420,11 +420,20 @@
         "clst": "1"
     },
     "s1superset": {
-        "storage": {},
+        "storage": {
+            "root_partition": "196G"
+        },
+        "ram": "47",
+        "cores": "8",
         "clst": "1"
     },
     "s1elasticsearch": {
-        "storage": {},
+        "storage": {
+            "root_partition": "196G",
+            "data": "3.6T"
+        },
+        "ram": "62",
+        "cores": "16",
         "clst": "1"
     }
 }
