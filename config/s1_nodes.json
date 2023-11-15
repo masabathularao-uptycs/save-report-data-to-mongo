@@ -4,6 +4,7 @@
     "SU": 6,
     "domain": "jupiter",
     "stack_url": "https://jupiter.uptycs.net/",
+    "pg_badger_url":"http://192.168.129.52:5602",
     "elk_url": "192.168.134.50",
     "trino_password": "a68dc948-6a5e-498e-873b-501aac439efd",
     "elastic": "192.168.129.52",
@@ -419,20 +420,11 @@
         "clst": "1"
     },
     "s1superset": {
-        "storage": {
-            "root_partition": "196G"
-        },
-        "ram": "47",
-        "cores": "8",
+        "storage": {},
         "clst": "1"
     },
     "s1elasticsearch": {
-        "storage": {
-            "root_partition": "196G",
-            "data": "3.6T"
-        },
-        "ram": "62",
-        "cores": "16",
+        "storage": {},
         "clst": "1"
     }
 }

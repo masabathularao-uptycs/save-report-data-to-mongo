@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 from memory_and_cpu_usages import MC_comparisions
 from osquery.add_kafka_topics import kafka_topics
+from pgbadger_reports import pgbadger
 from disk_space import DISK
 from input import create_input_form
 from capture_charts_data import Charts
@@ -85,6 +86,14 @@ if __name__ == "__main__":
             print("Performing disk space calculations ...")
             calc = DISK(start_timestamp=start_timestamp,end_timestamp=end_timestamp,prom_con_obj=prom_con_obj)
             disk_space_usage_dict=calc.make_calculations()
+        ##-------------------------------pg badger report link ----------------------------------
+        pg_badger_report_link=None
+        if variables["load_type"]=="Osquery" or variables["load_type"]=="ControlPlane" :
+            print("generating pg badger report ...")
+            load_name=variables['load_name']+"_"+variables['build']+"_"+str(start_time.date())
+            pg_badger_obj = pgbadger(test_env_json_details['pg_badger_url'],start_time,end_time,load_name)
+            pg_badger_report_link = pg_badger_obj.get_pg_badger_report()
+            print(pg_badger_report_link)
         #--------------------------------- add kafka topics ---------------------------------------
         kafka_topics_list=None
         if variables["load_type"]=="Osquery":
@@ -98,7 +107,8 @@ if __name__ == "__main__":
             print("Performing trino queries ...")
             calc = TRINO(curr_ist_start_time=variables["start_time_str_ist"],curr_ist_end_time=end_time_str,prom_con_obj=prom_con_obj)
             trino_queries = calc.fetch_trino_queries()
-            
+         
+           
         #-------------------------Osquery Table Accuracies----------------------------
         Osquery_table_accuracies=None
         Osquery_event_accuracies=None
