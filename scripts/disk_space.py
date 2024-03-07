@@ -110,7 +110,7 @@ class DISK:
     
     def make_calculations(self):
         current_build_data={}
-        current_build_data=self.save(self.calculate_disk_usage('kafka'),current_build_data)
+        # current_build_data=self.save(self.calculate_disk_usage('kafka'),current_build_data)
         current_build_data=self.save(self.calculate_disk_usage('hdfs'),current_build_data)
         current_build_data=self.save(self.pg_disk_calc('pg'),current_build_data)
         return current_build_data
